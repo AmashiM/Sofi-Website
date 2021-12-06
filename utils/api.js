@@ -3,10 +3,9 @@ const axios = require('axios').default;
 function authLink(client_id, client_secret, redirect_uri){
     let query = new URLSearchParams({
         client_id: client_id,
-        client_secret, client_secret,
         redirect_uri: redirect_uri
-    })
-    return `https://discord.com/api/oath2/authorize?${query}`
+    });
+    return `https://discord.com/api/oath2/authorize?${query}&response_type=code&scope=identify`
 }
 
 
@@ -27,7 +26,7 @@ class User {
      * @type {string}
      */
     discriminator = null;
-    
+
     constructor(data){
         this.id = data.id || null;
         this.username = data.username || null;
@@ -79,8 +78,8 @@ class Auth {
 
 
 /**
- * 
- * @param {Auth} auth 
+ *
+ * @param {Auth} auth
  * @returns {User}
  */
 async function getUser(auth){
